@@ -12,11 +12,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Variáveis de ambiente para a API de notícias
+# Variáveis de ambiente para a API de notícias.
 NEWS_API_KEY = os.getenv("NEWS_API_KEY", "sua_chave_aqui")
 NEWS_API_URL = "https://newsapi.org/v2/everything"
 
-# Estrutura do modelo de resposta
+# Estrutura do modelo de resposta.
 class AnalyzedArticle(BaseModel):
     title: str = Field(..., description="Título da notícia")
     author: Optional[str] = Field(None, description="Autor da notícia")
@@ -25,13 +25,13 @@ class AnalyzedArticle(BaseModel):
     sentiment: str = Field(..., description="Sentimento do título da notícia (positivo, negativo, neutro)")
     polarity: float = Field(..., description="Score de polaridade do título da notícia")
 
-# Modelo de resposta completo
+# Modelo de resposta completo.
 class NewsSentimentResponse(BaseModel):
     search_term: str = Field(..., description="Termo pesquisado")
     articles_found: int = Field(..., description="Número de notícias encontradas")
     articles: List[AnalyzedArticle] = Field(..., description="Lista de notícias analisadas")    
 
-# Endpoint principal
+# Endpoint principal.
 def get_sentiment(text: str) -> tuple[str, float]:
     """Analisa o sentimento do texto usando TextBlob."""
     analysis = TextBlob(text)

@@ -1,11 +1,9 @@
-// app/page.tsx
 "use client";
 
 import { useState, FormEvent } from "react";
 import styles from "./page.module.css";
 import React from "react";
 
-// Definindo a "forma" de um artigo para o TypeScript
 interface Article {
     title: string;
     author: string | null;
@@ -22,7 +20,7 @@ export default function Home() {
     const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (event: FormEvent) => {
-        event.preventDefault(); // Impede o recarregamento da página
+        event.preventDefault(); 
         if (!searchTerm.trim()) return;
 
         setIsLoading(true);
@@ -30,7 +28,6 @@ export default function Home() {
         setArticles([]);
 
         try {
-            // A URL da sua API FastAPI
             const response = await fetch(`http://localhost:8000/analyze?q=${encodeURIComponent(searchTerm)}`);
 
             if (!response.ok) {
@@ -47,7 +44,6 @@ export default function Home() {
         }
     };
 
-    // Função para obter a cor do sentimento
     const getSentimentClass = (sentiment: string) => {
         if (sentiment === "Positivo") return styles.positive;
         if (sentiment === "Negativo") return styles.negative;
